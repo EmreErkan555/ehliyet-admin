@@ -1,12 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
+import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
 
 function NavigationBar() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
 
   if (!isAuthenticated) {
     return null; // Kullanıcı giriş yapmadıysa navigasyonu gösterme
@@ -14,16 +13,32 @@ function NavigationBar() {
 
   return (
     <Navbar bg="light" expand="lg" style={{ justifyContent: 'space-between', padding: '0 1rem' }}>
-      <Navbar.Brand as={Link} to="/">Ehliyet</Navbar.Brand>
+      <Navbar.Brand as={Link} to="/">
+        <img 
+          src={user?.course?.icon} 
+          className="d-inline-block align-top"
+          alt="Car Logo"
+          height='50'
+        />
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-            <Nav.Link as={Link} to="/dashboard">Anasayfa</Nav.Link>
-            <Nav.Link as={Link} to="/addexam">Sınav Ekle</Nav.Link>
-            <Nav.Link as={Link} to="/adduser">Kullanıcı Ekle</Nav.Link>
+          <Nav.Link as={Link} to="/dashboard">Anasayfa</Nav.Link>
+          <Nav.Link as={Link} to="/addexam">Sınav Ekle</Nav.Link>
+          <Nav.Link as={Link} to="/examlist">Sınav Listesi</Nav.Link>
+          <Nav.Link as={Link} to="/adduser">Kullanıcı Ekle</Nav.Link>
         </Nav>
       </Navbar.Collapse>
-      <Button variant="outline-danger" onClick={logout} style={{ marginLeft: 'auto', marginTop: '10px', marginBottom: '10px' }}>Çıkış Yap</Button>
+      <NavDropdown title={user?.firstName + ' ' + user?.lastName } id="basic-nav-dropdown" style={{ marginLeft: 'auto', marginTop: '10px', marginBottom: '10px', marginRight: '10px' }}>
+        {/* Add dropdown items or links here */}
+        <NavDropdown.Item as={Link} to="/panel">Yönetici Paneli</NavDropdown.Item>
+        {/* <NavDropdown.Item as={Link} to="/settings">Ayarlar</NavDropdown.Item> */}
+        <NavDropdown.Divider />
+        <NavDropdown.Item onClick={logout} style={{color: 'red'}}>Çıkış Yap</NavDropdown.Item>
+      </NavDropdown>
+      {/* <NavDropdown as={Link} to="/adduser" style={{ marginLeft: 'auto', marginTop: '10px', marginBottom: '10px', marginRight: '10px' }}>{user?.userName}</Nav.Link> */}
+      {/* <Button variant="outline-danger" onClick={logout} style={{ marginLeft: 'auto', marginTop: '10px', marginBottom: '10px' }}>Çıkış Yap</Button> */}
     </Navbar>
   );
 }

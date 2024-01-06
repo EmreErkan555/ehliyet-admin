@@ -1,0 +1,14 @@
+.dashboard-card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-icon {
+  margin-right: 8px;
+}

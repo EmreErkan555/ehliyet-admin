@@ -7,14 +7,14 @@ import Card from 'react-bootstrap/Card';
 
 function LoginForm() {
   const { login } = useAuth();
-  const [email, setEmail] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await login(email, password);
+      await login(userName, password);
     } catch (error) {
       console.error('Login error:', error);
     }
@@ -26,9 +26,9 @@ function LoginForm() {
         <Card.Body>
           <h2 className="text-center mb-4">Giriş Yap</h2>
           <Form onSubmit={handleSubmit}>
-            <Form.Group id="email">
+            <Form.Group id="username">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <Form.Control type="username" value={userName} onChange={(e) => setUserName(e.target.value)} required />
             </Form.Group>
             <Form.Group id="password" className="mb-4">
               <Form.Label>Şifre</Form.Label>
