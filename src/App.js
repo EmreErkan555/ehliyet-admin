@@ -12,6 +12,8 @@ import AddUser from './components/AddUser';
 import ExamList from './components/ExamList';
 import Panel from './components/AdminPanel/Panel';
 import Lessons from './components/AdminPanel/Lessons';
+import Courses from './components/AdminPanel/Courses';
+import Users from './components/AdminPanel/Users';
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
             <Route path="/adduser" element={<PrivateRoute> <AddUser /> </PrivateRoute>} />
             <Route path="/panel" element={<PrivateRoute> <Panel /> </PrivateRoute>} />
             <Route path="/lessons" element={<PrivateRoute> <Lessons /> </PrivateRoute>} />
+            <Route path="/courses" element={<PrivateRoute> <Courses /> </PrivateRoute>} />
+            <Route path="/users" element={<PrivateRoute> <Users /> </PrivateRoute>} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import Button from 'react-bootstrap/Button';
 import { NavDropdown, Navbar, Nav } from 'react-bootstrap';
+import { USER_ROLES } from '../helper/constants';
 
 function NavigationBar() {
   const { isAuthenticated, logout, user } = useAuth();
@@ -32,9 +33,12 @@ function NavigationBar() {
       </Navbar.Collapse>
       <NavDropdown title={user?.firstName + ' ' + user?.lastName } id="basic-nav-dropdown" style={{ marginLeft: 'auto', marginTop: '10px', marginBottom: '10px', marginRight: '10px' }}>
         {/* Add dropdown items or links here */}
-        <NavDropdown.Item as={Link} to="/panel">Yönetici Paneli</NavDropdown.Item>
-        {/* <NavDropdown.Item as={Link} to="/settings">Ayarlar</NavDropdown.Item> */}
-        <NavDropdown.Divider />
+        {user?.role.id === USER_ROLES.ADMIN && 
+          <><NavDropdown.Item as={Link} to="/panel">Yönetici Paneli</NavDropdown.Item><NavDropdown.Divider /></>}
+        {user?.role.id === USER_ROLES.COURSEADMIN && 
+          <><NavDropdown.Item as={Link} to="/panel">Yönetici Paneli</NavDropdown.Item><NavDropdown.Divider /></>
+        }
+
         <NavDropdown.Item onClick={logout} style={{color: 'red'}}>Çıkış Yap</NavDropdown.Item>
       </NavDropdown>
       {/* <NavDropdown as={Link} to="/adduser" style={{ marginLeft: 'auto', marginTop: '10px', marginBottom: '10px', marginRight: '10px' }}>{user?.userName}</Nav.Link> */}

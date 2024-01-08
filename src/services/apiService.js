@@ -17,6 +17,83 @@ export async function apiLogin(userName, password) {
   return data.payload;
 }
 
+//-------------USER-------------------
+export async function getUsers() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/auth`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get course failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addUser(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add course failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editUser(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/auth/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add course failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteUser(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/auth/delete/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add Course failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
 //-------------LESSON-------------------
 export async function getLessons() {
   const token = localStorage.getItem('token')
@@ -79,7 +156,7 @@ export async function editLesson(data, id) {
 export async function deleteLesson(id) {
   const token = localStorage.getItem('token')
   const response = await fetch(`${BASE_URL}/lesson/${id}`, {
-    method: 'DELETE',
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + token
@@ -92,4 +169,100 @@ export async function deleteLesson(id) {
 
   const responseJson = await response.json();
   return responseJson.payload;
+}
+
+//-------------COURSE-------------------
+export async function getCourses() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/course`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get course failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addCourse(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/course`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add course failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editCourse(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/course/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add course failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteCourse(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/course/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add Course failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+//-------------ROLE-------------------
+export async function getRoles() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/role`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get course failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
 }
