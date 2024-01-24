@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { addCourse, deleteCourse, editCourse, getCourses } from "../../services/apiService";
+import { addCourse, deleteCourse, editCourse, getCourses, getLanguages } from "../../services/apiService";
 import {
   Container,
   Row,
@@ -18,21 +18,30 @@ export default function Courses() {
   const [courses, setCourses] = useState([])
   const [form, setForm] = useState({
     name: '',
-    logo: ''
+    logo: '',
+    languages: []
   })
   const [editForm, setEditForm] = useState({
     name: '',
-    logo: ''
+    logo: '',
+    languages: []
   })
   const [editId, setEditID] = useState(null)
+  const [languages, setLanguages] = useState([]);
 
   useEffect(() => {
     fetchCourses()
+    fetchLanguages()
   }, [])
 
   const fetchCourses = async () => {
     const course = await getCourses();
     setCourses(course)
+  }
+
+  const fetchLanguages = async () => {
+    const languages = await getLanguages();
+    setLanguages(languages)
   }
 
   const handleAddCourse = async () => {
@@ -55,7 +64,8 @@ export default function Courses() {
   const handleEdit = (item) => {
     setEditForm({
       name: item.name,
-      link: item.link
+      logo: item.icon,
+      languages: item.languages
     })
     setEditID(item.id)
     setEditModalVisible(true)
@@ -165,6 +175,24 @@ export default function Courses() {
                     <Form.Label>Logo Ekle</Form.Label>
                     <Form.Control type="file" accept="image/*" onChange={handleImageUpload} />
                   </Form.Group>
+                  <Form.Group controlId="languages">
+                    <Form.Label>Diller:</Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple
+                      value={form.languages}
+                      onChange={(e) => setForm({
+                        ...form,
+                        languages: Array.from(e.target.selectedOptions, option => option.value)
+                      })}
+                    >
+                      {languages.map(language => (
+                        <option key={language.id} value={language.id}>
+                          {language.label}
+                        </option>
+                      ))}
+                    </Form.Control>
+                  </Form.Group>
                 </Form>
               </Modal.Body>
               <Modal.Footer>
@@ -201,6 +229,24 @@ export default function Courses() {
                   <Form.Group controlId="icon">
                     <Form.Label>Logo Ekle</Form.Label>
                     <Form.Control type="file" accept="image/*" onChange={(e) => handleImageUpload(e, true)} />
+                  </Form.Group>
+                  <Form.Group controlId="languages">
+                    <Form.Label>Diller:</Form.Label>
+                    <Form.Control
+                      as="select"
+                      multiple
+                      value={editForm.languages}
+                      onChange={(e) => setEditForm({
+                        ...editForm,
+                        languages: Array.from(e.target.selectedOptions, option => option.value)
+                      })}
+                    >
+                      {languages.map(language => (
+                        <option key={language.id} value={language.id}>
+                          {language.label}
+                        </option>
+                      ))}
+                    </Form.Control>
                   </Form.Group>
                 </Form>
               </Modal.Body>
