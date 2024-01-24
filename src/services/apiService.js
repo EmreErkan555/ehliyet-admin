@@ -35,6 +35,24 @@ export async function getUsers() {
   return data.payload;
 }
 
+export async function getUsersByCourse(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/auth/bycourse/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get course failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
 export async function addUser(data) {
   const dataJson = JSON.stringify(data)
   const token = localStorage.getItem('token')
@@ -647,6 +665,26 @@ export async function getLanguages() {
 
   const data = await response.json();
   return data.payload;
+}
+
+export async function getLanguagesByIds(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/language/byids`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get language failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
 }
 
 export async function addLanguage(data) {

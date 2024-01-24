@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { addUser, deleteUser, editUser, getCourses, getRoles, getUsers } from "../../services/apiService";
+import { addUser, deleteUser, editUser, getCourses, getRoles, getUsers, getUsersByCourse } from "../../services/apiService";
 import {
   Container,
   Row,
@@ -60,7 +60,7 @@ export default function Users() {
   }, [])
 
   const fetchUsers = async () => {
-    const users = await getUsers();
+    const users = user.role.id === USER_ROLES.ADMIN ? await getUsers() : await getUsersByCourse(user.course.id)
     setUsers(users)
   }
 
@@ -181,7 +181,7 @@ export default function Users() {
                     <Form.Label>Adı</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Kullanıcı Adı"
+                      placeholder="Adı"
                       onChange={(e) => setForm({
                         ...form,
                         firstName: e.target.value
@@ -192,7 +192,7 @@ export default function Users() {
                     <Form.Label>Soyadı</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Kullanıcı Adı"
+                      placeholder="Soyadı"
                       onChange={(e) => setForm({
                         ...form,
                         lastName: e.target.value
@@ -203,7 +203,7 @@ export default function Users() {
                     <Form.Label>Şifre</Form.Label>
                     <Form.Control
                       type="password"
-                      placeholder="Kullanıcı Adı"
+                      placeholder="Şifre"
                       onChange={(e) => setForm({
                         ...form,
                         password: e.target.value
