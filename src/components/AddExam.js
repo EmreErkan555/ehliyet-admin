@@ -26,7 +26,6 @@ function AddExam() {
 
       if (response.ok) {
         navigate('/dashboard');
-        console.log('Sınav eklendi.');
       } else {
         console.error('Sınav eklenirken bir hata oluştu.');
       }

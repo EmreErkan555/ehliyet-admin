@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { getExams } from '../services/apiService';
 
 function ExamList() {
   const navigate = useNavigate();
@@ -11,17 +12,8 @@ function ExamList() {
   const token = localStorage.getItem('token');
 
   async function fetchExams() {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/exams`, {
-        headers: {
-          Authorization: token
-        }
-      });
-      const data = await response.json();
-      setExams(data);
-    } catch (error) {
-      console.error('Error fetching exams:', error);
-    }
+    const data = await getExams()
+    setExams(data);
   }
 
   const deleteExam = async (examId) => {

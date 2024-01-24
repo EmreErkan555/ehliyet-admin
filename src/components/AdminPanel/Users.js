@@ -13,8 +13,11 @@ import Sidebar from "../Sidebar/Sidebar";
 import moment from 'moment';
 import { useAuth } from "../../contexts/AuthContext";
 import { USER_ROLES, isAdmin } from "../../helper/constants";
+import { useTranslation } from 'react-i18next';
 
 export default function Users() {
+  const { t } = useTranslation(['headers']);
+
   const { user } = useAuth();
   const [modalVisible, setModalVisible] = useState(false)
   const [editModalVisible, setEditModalVisible] = useState(false)
@@ -40,6 +43,7 @@ export default function Users() {
   const [editId, setEditID] = useState(null)
 
   useEffect(() => {
+    document.title = t('headers:panel');
     if(user.role.id !== USER_ROLES.ADMIN) {
       setForm((prevForm) => ({
         ...prevForm,
@@ -87,14 +91,14 @@ export default function Users() {
     if(response) fetchUsers()
   }
 
-  const handleEdit = (item) => {
-    setEditForm({
-      name: item.name,
-      link: item.link
-    })
-    setEditID(item.id)
-    setEditModalVisible(true)
-  }
+  // const handleEdit = (item) => {
+  //   setEditForm({
+  //     name: item.name,
+  //     link: item.link
+  //   })
+  //   setEditID(item.id)
+  //   setEditModalVisible(true)
+  // }
 
   const handleAddUserVisible = () => {
     setModalVisible(true)
@@ -140,9 +144,9 @@ export default function Users() {
                             <td>{item.userName}</td>
                             <td>{moment(item.createdAt).format('DD.MM.YYYY HH:mm')}</td>
                             <td>
-                              <Button variant="info" size="sm" onClick={() => handleEdit(item)}>
+                              {/* <Button variant="info" size="sm" onClick={() => handleEdit(item)}>
                                 Düzenle
-                              </Button>{" "}
+                              </Button>{" "} */}
                               <Button variant="danger" size="sm" onClick={() => handleDelete(item.id)}>
                                 Sil
                               </Button>
@@ -277,18 +281,6 @@ export default function Users() {
                         ...editForm,
                         name: e.target.value
                       })}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="formLink">
-                    <Form.Label>Link</Form.Label>
-                    <Form.Control
-                      value={editForm.link}
-                      type="text"
-                      placeholder="Link"
-                      onChange={(e) => setEditForm({ 
-                        ...editForm,
-                        link: e.target.value
-                      })}                    
                     />
                   </Form.Group>
                 </Form>

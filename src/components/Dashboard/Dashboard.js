@@ -2,8 +2,11 @@ import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { FaBook, FaChalkboardTeacher, FaClipboardList } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Dashboard() {
+  const { t } = useTranslation(['dashboard']);
+  document.title = t('headers:main-page');
   return (
     <Container fluid>
       <Row className="mt-4">
@@ -11,13 +14,13 @@ function Dashboard() {
           <Card className="dashboard-card snavlar">
             <Card.Body>
               <Card.Title>
-                <FaClipboardList className="dashboard-icon" /> Sınavlar
+                <FaClipboardList className="dashboard-icon" /> {t('dashboard:exams')}
               </Card.Title>
               <Card.Text>
-                Bu alanda sınavlarınıza ait bilgileri görebilirsiniz.
+                {t('dashboard:exams-desc')}
               </Card.Text>
-              <Link to="/sinavlar" className="btn btn-primary">
-                Detaylar
+              <Link to="/exam" className="btn btn-primary">
+                {t('dashboard:details')}
               </Link>
             </Card.Body>
           </Card>
@@ -26,13 +29,13 @@ function Dashboard() {
           <Card className="dashboard-card kitaplar">
             <Card.Body>
               <Card.Title>
-                <FaBook className="dashboard-icon" /> Kitaplar
+                <FaBook className="dashboard-icon" /> {t('dashboard:books')}
               </Card.Title>
               <Card.Text>
-                Bu alanda kitaplarınıza ait bilgileri görebilirsiniz.
+                {t('dashboard:books-desc')}
               </Card.Text>
-              <Link to="/kitaplar" className="btn btn-success">
-                Detaylar
+              <Link to="/books" className="btn btn-success">
+                {t('dashboard:details')}
               </Link>
             </Card.Body>
           </Card>
@@ -41,13 +44,13 @@ function Dashboard() {
           <Card className="dashboard-card dersler">
             <Card.Body>
               <Card.Title>
-                <FaChalkboardTeacher className="dashboard-icon" /> Dersler
+                <FaChalkboardTeacher className="dashboard-icon" /> {t('dashboard:lessons')}
               </Card.Title>
               <Card.Text>
-                Bu alanda derslerinize ait bilgileri görebilirsiniz.
+                {t('dashboard:lessons-desc')}
               </Card.Text>
-              <Link to="/dersler" className="btn btn-warning">
-                Detaylar
+              <Link to="/lesson" className="btn btn-warning">
+                {t('dashboard:details')}
               </Link>
             </Card.Body>
           </Card>

@@ -13,7 +13,6 @@ export async function apiLogin(userName, password) {
   }
 
   const data = await response.json();
-  console.log("data", data)
   return data.payload;
 }
 
@@ -136,7 +135,7 @@ export async function addLesson(data) {
 export async function editLesson(data, id) {
   const dataJson = JSON.stringify(data)
   const token = localStorage.getItem('token')
-  const response = await fetch(`${BASE_URL}/lesson/${id}`, {
+  const response = await fetch(`${BASE_URL}/lesson/edit/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -213,7 +212,7 @@ export async function addCourse(data) {
 export async function editCourse(data, id) {
   const dataJson = JSON.stringify(data)
   const token = localStorage.getItem('token')
-  const response = await fetch(`${BASE_URL}/course/${id}`, {
+  const response = await fetch(`${BASE_URL}/course/edit/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -265,4 +264,445 @@ export async function getRoles() {
 
   const data = await response.json();
   return data.payload;
+}
+
+//-------------EXAM-------------------
+export async function getExams() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/exam`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get exam failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addExam(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/exam`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add exam failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editExam(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/exam/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add exam failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteExam(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/exam/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add exam failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+//-------------QUESTION-------------------
+export async function getQuestions() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/question`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get question failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function getQuestionsbyExam(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/question/byexam/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get question failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addQuestion(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/question`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add question failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editQuestion(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/question/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add question failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteQuestion(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/question/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add question failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+//-------------SECTION-------------------
+export async function getSections() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/section`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get section failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addSection(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/section`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add section failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editSection(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/section/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add section failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteSection(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/section/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add section failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+//-------------SECTIONPART-------------------
+export async function getSectionParts() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/sectionPart`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get sectionPart failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function getPartsbySection(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/sectionPart/bysection/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get sectionPart failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addSectionPart(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/sectionPart`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add sectionPart failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editSectionPart(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/sectionPart/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add sectionPart failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteSectionPart(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/sectionPart/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add sectionPart failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function getSectionPartAudio(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/sectionpart/${id}/audio`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get sectionPart failed');
+  }
+
+  const data = await response.arrayBuffer();
+  const blob = new Blob([data], { type: 'audio/mpeg' });
+  const blobURL = URL.createObjectURL(blob);
+  return blobURL;
+}
+
+//-------------LANGUAGE-------------------
+export async function getLanguages() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/language`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get language failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
+export async function addLanguage(data) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/language`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add language failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function editLanguage(data, id) {
+  const dataJson = JSON.stringify(data)
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/language/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+    body: dataJson
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add language failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
+}
+
+export async function deleteLanguage(id) {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/language/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Add language failed');
+  }
+
+  const responseJson = await response.json();
+  return responseJson.payload;
 }

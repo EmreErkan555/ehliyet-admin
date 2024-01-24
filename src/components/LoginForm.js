@@ -4,8 +4,12 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
+import { useTranslation } from 'react-i18next';
 
 function LoginForm() {
+  const { t } = useTranslation(['headers']);
+  document.title = t('headers:login');
+
   const { login } = useAuth();
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');

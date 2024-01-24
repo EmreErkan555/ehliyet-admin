@@ -2,21 +2,21 @@ import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addQuestion, deleteQuestion, getQuestionsbyExam } from '../../services/apiService';
 
 function AddQuestion() {
-  const navigate = useNavigate();
   const { examId } = useParams();
 
   const location = useLocation();
   const { examName } = location.state;
 
   const [form, setForm] = useState({
-    exam: examId,
+    examId: examId,
     questionText: '',
     optionA: '',
     optionB: '',
@@ -28,47 +28,26 @@ function AddQuestion() {
   const [questions, setQuestions] = useState([]);
 
   const fetchQuestions = async () => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/questions/byexam/${examId}`, {
-        headers: {
-            Authorization: localStorage.getItem('token')
-        }
-      });
-      console.log("response", response)
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("data", data)
-        setQuestions(data);
-      } else {
-        console.error('Sorular alınırken bir hata oluştu.');
-      }
-    } catch (error) {
-      console.error('Error fetching questions:', error);
-    }
+    const response = await getQuestionsbyExam(examId)
+    setQuestions(response);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/questions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: localStorage.getItem('token')
-        },
-        body: JSON.stringify(form)
-      });
-
-      if (response.ok) {
-        fetchQuestions();
-        toast.success('Soru eklendi');
-      } else {
-        console.error('Soru eklenirken bir hata oluştu.');
-      }
-    } catch (error) {
-      console.error('Error adding question:', error);
+    const response = await addQuestion(form)
+    if(response) {
+      fetchQuestions()
+      toast.success('Soru eklendi');
+      setForm({
+        examId: examId,
+        questionText: '',
+        optionA: '',
+        optionB: '',
+        optionC: '',
+        optionD: '',
+        correctChoice: 'A',
+        image: '',
+      })
     }
   };
 
@@ -81,22 +60,8 @@ function AddQuestion() {
   };
 
   const handleDelete = async (questionId) => {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/questions/${questionId}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: localStorage.getItem('token')
-        }
-      });
-
-      if (response.ok) {
-        fetchQuestions(); // Soru silindikten sonra soruları tekrar çek
-      } else {
-        console.error('Soru silinirken bir hata oluştu.');
-      }
-    } catch (error) {
-      console.error('Error deleting question:', error);
-    }
+    const response = await deleteQuestion(questionId)
+    if(response) fetchQuestions()
   };
 
   const handleImageUpload = (e) => {
@@ -201,13 +166,13 @@ function AddQuestion() {
                 <Card.Img variant="top" src={question.image} alt="Soru Fotoğrafı" />
             )}
             <ListGroup variant="flush">
-                <ListGroup.Item>A {question.optionA}</ListGroup.Item>
-                <ListGroup.Item>B {question.optionB}</ListGroup.Item>
-                <ListGroup.Item>C {question.optionC}</ListGroup.Item>
-                <ListGroup.Item>D {question.optionD}</ListGroup.Item>
+                <ListGroup.Item>A- {question.optionA}</ListGroup.Item>
+                <ListGroup.Item>B- {question.optionB}</ListGroup.Item>
+                <ListGroup.Item>C- {question.optionC}</ListGroup.Item>
+                <ListGroup.Item>D- {question.optionD}</ListGroup.Item>
                 <ListGroup.Item>Doğru şık: {question.correctChoice}</ListGroup.Item>
                 <ListGroup.Item>
-                    <Button variant="danger" onClick={() => handleDelete(question._id)}>Sil</Button>
+                    <Button variant="danger" onClick={() => handleDelete(question.id)}>Sil</Button>
                 </ListGroup.Item>
             </ListGroup>
           </Card>

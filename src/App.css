@@ -30,9 +30,13 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotateX(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotateX(360deg);
   }
+}
+
+.spin-animation:hover {
+  animation: App-logo-spin 0.5s linear;
 }

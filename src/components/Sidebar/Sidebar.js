@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Col } from "react-bootstrap";
-import { FaBook, FaCar } from "react-icons/fa";
-import { MdHotelClass } from "react-icons/md";
+import { FaBook, FaCar, FaUsers, FaLanguage } from "react-icons/fa";
 import { PiExamFill } from "react-icons/pi";
 import { SiGoogleclassroom } from "react-icons/si";
 import { useAuth } from "../../contexts/AuthContext";
@@ -26,17 +25,17 @@ const Sidebar = () => {
                 to="/users"
                 style={{ fontSize: 20, color: "black" }}
               >
-                <FaBook /> Kullanıcılar
+                <FaUsers /> Kullanıcılar
               </Nav.Link>
               {user?.role.id === USER_ROLES.ADMIN && (
                 <>
-                  <Nav.Link
+                  {/* <Nav.Link
                     as={Link}
                     to="/roles"
                     style={{ fontSize: 20, color: "black" }}
                   >
                     <MdHotelClass /> Roller
-                  </Nav.Link>
+                  </Nav.Link> */}
                   <Nav.Link
                     as={Link}
                     to="/courses"
@@ -57,6 +56,20 @@ const Sidebar = () => {
                     style={{ fontSize: 20, color: "black" }}
                   >
                     <SiGoogleclassroom /> Dersler
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to="/sections"
+                    style={{ fontSize: 20, color: "black" }}
+                  >
+                    <FaBook /> Kitaplar
+                  </Nav.Link>
+                  <Nav.Link
+                    as={Link}
+                    to="/languages"
+                    style={{ fontSize: 20, color: "black" }}
+                  >
+                    <FaLanguage /> Diller
                   </Nav.Link>
                 </>
               )}

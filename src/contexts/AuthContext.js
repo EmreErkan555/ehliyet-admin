@@ -28,6 +28,7 @@ export function AuthProvider({ children }) {
     setUser(null)
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('selectedLanguage');
   };
 
   const isAuthenticated = !!token;
