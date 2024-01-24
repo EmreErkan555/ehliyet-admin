@@ -75,7 +75,7 @@ export default function Exams() {
                       variant="primary"
                       onClick={() => setModalVisible(true)}
                     >
-                      Kitap Ekle
+                      Sınav Ekle
                     </Button>
                     <Table className="mt-3" striped bordered hover>
                       <thead>
@@ -112,15 +112,15 @@ export default function Exams() {
 
             <Modal show={modalVisible} onHide={() => setModalVisible(false)}>
               <Modal.Header closeButton>
-                <Modal.Title>Kitap Ekle</Modal.Title>
+                <Modal.Title>Sınav Ekle</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Form>
                   <Form.Group controlId="formExamName">
-                    <Form.Label>Kitap Adı</Form.Label>
+                    <Form.Label>Sınav Adı</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Kitap Adı"
+                      placeholder="Sınav Adı"
                       onChange={(e) => setForm({
                         ...form,
                         name: e.target.value
@@ -144,16 +144,16 @@ export default function Exams() {
 
             <Modal show={editModalVisible} onHide={() => setEditModalVisible(false)}>
               <Modal.Header closeButton>
-                <Modal.Title>Kitap Ekle</Modal.Title>
+                <Modal.Title>Sınav Ekle</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Form>
                   <Form.Group controlId="formExamName">
-                    <Form.Label>Kitap Adı</Form.Label>
+                    <Form.Label>Sınav Adı</Form.Label>
                     <Form.Control
                       value={editForm.name}
                       type="text"
-                      placeholder="Kitap Adı"
+                      placeholder="Sınav Adı"
                       onChange={(e) => setEditForm({
                         ...editForm,
                         name: e.target.value
