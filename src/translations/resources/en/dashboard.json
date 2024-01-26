@@ -6,5 +6,7 @@
   "books-desc": "You can see information related to your books in this area.",
   "lessons": "Lessons",
   "lessons-desc": "You can see information related to your lessons in this area.",
-  "exam-list": "Exam List"
+  "exam-list": "Exam List",
+  "latest-exams": "Latest Exams",
+  "latest-books": "Latest Books"
 }

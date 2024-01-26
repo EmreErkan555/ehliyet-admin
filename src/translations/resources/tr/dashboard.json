@@ -7,5 +7,6 @@
   "lessons": "Dersler",
   "lessons-desc": "Bu alanda derslerinize ait bilgileri görebilirsiniz.",
   "exam-list": "Sınav Listesi",
-  "show-answers": "Cevapları Göster"
+  "latest-exams": "Son Eklenen Sınavlar",
+  "latest-books": "Son Eklenen Kitaplar"
 }
