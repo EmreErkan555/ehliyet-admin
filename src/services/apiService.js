@@ -303,6 +303,24 @@ export async function getExams() {
   return data.payload;
 }
 
+export async function getLatestExams() {
+  const token = localStorage.getItem('token')
+  const response = await fetch(`${BASE_URL}/exam/latest`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token
+    },
+  });
+  
+  if (!response.ok) {
+    throw new Error('Get exam failed');
+  }
+
+  const data = await response.json();
+  return data.payload;
+}
+
 export async function addExam(data) {
   const dataJson = JSON.stringify(data)
   const token = localStorage.getItem('token')
